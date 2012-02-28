@@ -1,0 +1,24 @@
+{
+  "name": "fetcher", 
+  "version": "0.0.1",
+  "description": "A simple URI fetcher.",
+  "keywords": ["http", "uri", "fetch"],
+  "author": "Moto Ishizawa <summerwind.jp@gmail.com>",
+  "main": "./index",
+  "repository": { 
+    "type": "git",
+    "url": "git://github.com/summerwind/node-fetch.git"
+  },
+  "engines": { 
+    "node": ">= 0.4.x < 0.8.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies":{
+    "iconv": "1.1.3"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
