@@ -13,10 +13,11 @@
     "node": ">= 0.4.x < 0.8.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha -R spec"
   },
   "dependencies":{
-    "iconv": "1.1.3"
+    "iconv": "1.1.3",
+    "buffertools": "*"
   },
   "devDependencies": {
     "mocha": "*",
