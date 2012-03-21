@@ -83,7 +83,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('EUC-JP');
     });
     
-    it('HTTPヘッダー: ISO-2022-JP', function() {
+    it('HTTPヘッダー: iso-2022-jp', function() {
         var charset = 'iso-2022-jp';
         var header = { 'content-type': 'Content-Type:text/html; charset='+charset };
         var body = new Buffer('');
@@ -92,7 +92,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('ISO-2022-JP');
     });
     
-    it('HTTPヘッダー: Unknown', function() {
+    it('HTTPヘッダー: unknown', function() {
         var charset = 'unknown';
         var header = { 'content-type': 'Content-Type:text/html; charset='+charset };
         var body = new Buffer('');
@@ -109,7 +109,7 @@ describe('文字コードの検出', function() {
         should.not.exist(encoding);
     });
     
-    it('マークアップ: utf8', function() {
+    it('HTML4マークアップ: utf8', function() {
         var charset = 'utf8'
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
@@ -118,7 +118,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('UTF-8');
     });
     
-    it('マークアップ: utf-8', function() {
+    it('HTML4マークアップ: utf-8', function() {
         var charset = 'utf-8';
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
@@ -127,7 +127,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('UTF-8');
     });
     
-    it('マークアップ: sjis', function() {
+    it('HTML4マークアップ: sjis', function() {
         var charset = 'sjis';
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
@@ -136,7 +136,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('Shift_JIS');
     });
     
-    it('マークアップ: shiftjis', function() {
+    it('HTML4マークアップ: shiftjis', function() {
         var charset = 'shiftjis';
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
@@ -145,7 +145,7 @@ describe('文字コードの検出', function() {
         encoding.should.equal('Shift_JIS');
     });
     
-    it('マークアップ: shift-jis', function() {
+    it('HTML4マークアップ: shift-jis', function() {
         var charset = 'shift-jis';
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
@@ -154,12 +154,172 @@ describe('文字コードの検出', function() {
         encoding.should.equal('Shift_JIS');
     });
     
-    it('マークアップ: shift_jis', function() {
+    it('HTML4マークアップ: shift_jis', function() {
         var charset = 'shift_jis';
         var header = { 'content-type': 'Content-Type:text/html' };
         var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
         
         var encoding = fetcher.detectEncoding(header, body);
         encoding.should.equal('Shift_JIS');
+    });
+    
+    it('HTML4マークアップ: eucjp', function() {
+        var charset = 'eucjp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML4マークアップ: euc_jp', function() {
+        var charset = 'euc_jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML4マークアップ: euc-jp', function() {
+        var charset = 'euc-jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML4マークアップ: iso-2022-jp', function() {
+        var charset = 'iso-2022-jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('ISO-2022-JP');
+    });
+    
+    it('HTML4マークアップ: unknown', function() {
+        var charset = 'unknown';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta http-equiv="content-type" content="text/html; charset='+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        should.not.exist(encoding);
+    }); 
+    
+    it('HTML4マークアップ: 文字コード未指定', function() {
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        should.not.exist(encoding);
+    });
+    
+    it('HTML5マークアップ: utf8', function() {
+        var charset = 'utf8'
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('UTF-8');
+    });
+    
+    it('HTML5マークアップ: utf-8', function() {
+        var charset = 'utf-8';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('UTF-8');
+    });
+    
+    it('HTML5マークアップ: sjis', function() {
+        var charset = 'sjis';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('Shift_JIS');
+    });
+    
+    it('HTML5マークアップ: shiftjis', function() {
+        var charset = 'shiftjis';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('Shift_JIS');
+    });
+    
+    it('HTML5マークアップ: shift-jis', function() {
+        var charset = 'shift-jis';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('Shift_JIS');
+    });
+    
+    it('HTML5マークアップ: shift_jis', function() {
+        var charset = 'shift_jis';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('Shift_JIS');
+    });
+    
+    it('HTML5マークアップ: eucjp', function() {
+        var charset = 'eucjp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML5マークアップ: euc_jp', function() {
+        var charset = 'euc_jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML5マークアップ: euc-jp', function() {
+        var charset = 'euc-jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('EUC-JP');
+    });
+    
+    it('HTML5マークアップ: iso-2022-jp', function() {
+        var charset = 'iso-2022-jp';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        encoding.should.equal('ISO-2022-JP');
+    });
+    
+    it('HTML5マークアップ: unknown', function() {
+        var charset = 'unknown';
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('<meta charset="'+charset+'">');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        should.not.exist(encoding);
+    }); 
+    
+    it('HTML5マークアップ: 文字コード未指定', function() {
+        var header = { 'content-type': 'Content-Type:text/html' };
+        var body = new Buffer('');
+        
+        var encoding = fetcher.detectEncoding(header, body);
+        should.not.exist(encoding);
     });
 });

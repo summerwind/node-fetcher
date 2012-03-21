@@ -79,7 +79,7 @@ Fetcher.convertEncoding = function(enc, buf) {
 Fetcher.detectEncoding = function(header, body) {
     var enc = null, charset = null;
     var header_pattern = /charset=([0-9a-zA-Z_\-]+)/;
-    var markup_pattern = /(charset|encoding)=['"]?([0-9a-zA-Z_\-]+)/;
+    var markup_pattern = /<meta.+?(charset|encoding)=['"]?([0-9a-zA-Z_\-]+)/;
     var content_type = header['content-type'];
     
     // 文字コードの抽出
